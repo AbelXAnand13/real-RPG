@@ -18,7 +18,7 @@ int Goran(int, int);
 int Borjad(int, int);
 int Freece(int, int);
 int Poyrad(int, int);
-int Attack(int, int);
+int Attack(int, int, int);
 
 
 
@@ -61,7 +61,7 @@ int main() {
         player1.health = 100;
         player1.weaponDamage = 50;
     }
-    cout << "Hi " << name << " welcome to The Adventures of string name;\nYour task is to survive\nIf you die, all aquired items will be lost\n";
+    cout << "Hi " << name << " welcome to The Adventures of string name;\nYour task is to survive\n";
     skip();
     bool scario = false;
     bool goran = false;
@@ -72,14 +72,16 @@ int main() {
     int goranPlayed = 0;
     int borjadPlayed = 0;
     int freecePlayed = 0;
-    int poyradPlayed = 0;
+    string poyradCode = "SKYZM";
+    bool poyradQuit;
+    int poyradChoice;//if you want to choose a different planet or try the poyrad code again
+    string playerCode;//code that the player enters
     cout << "Choose the planet you want to start at.\nYou can only change planets when you finish the mission on the planet\nHint: Choose Poyrad last\n";
     cout << "How to play: Your enemy will do anywhere from 1 - 20 damage on you, you will either dodge, or shoot. Each enemy can be killed with two shots\n";
     while (!quit) {
         planetMenu();
         cin >> planetChoice;
         skip();
-        cout << "Health = " << player1.health << "   Weapon Damage = " << player1.weaponDamage << endl;
         switch(planetChoice) {
             case 1:
                 scario = true;
@@ -96,11 +98,18 @@ int main() {
             case 5:
                 poyrad = true;
                 break;
+            default:
+                cout << "Please choose a valid planet";
+                break;
         }
         if (scario == true) {
             if (scarioPlayed == 0) {
+                cout << "Health = " << player1.health << "   Weapon Damage = " << player1.weaponDamage << endl;
                 player1.health = Scario(player1.health, player1.weaponDamage);
+                cout << "You killed all the goons";
                 cout << "First letter: S\n";
+                scario = false;
+                scarioPlayed++;
                 skip();
             }
             else {
@@ -108,9 +117,12 @@ int main() {
             }
         }
         else if (goran == true) {
+            cout << "Health = " << player1.health << "   Weapon Damage = " << player1.weaponDamage << endl;
             if (goranPlayed == 0) {
                 player1.health = Goran(player1.health, player1.weaponDamage);
                 cout << "Second letter: K\n";
+                goran = false;
+                goranPlayed++;
                 skip();
             }
             else {
@@ -118,9 +130,12 @@ int main() {
             }
         }
         else if (borjad == true) {
+            cout << "Health = " << player1.health << "   Weapon Damage = " << player1.weaponDamage << endl;
             if (borjadPlayed == 0) {
                 player1.health = Borjad(player1.health, player1.weaponDamage);
                 cout << "Third letter: Y\n";
+                borjad = false;
+                borjadPlayed++;
                 skip();
             }
             else {
@@ -128,9 +143,12 @@ int main() {
             }
         }
         else if (freece == true) {
+            cout << "Health = " << player1.health << "   Weapon Damage = " << player1.weaponDamage << endl;
             if (freecePlayed == 0) {
                 player1.health = Freece(player1.health, player1.weaponDamage);
                 cout << "Fourth letter: Z\n";
+                freece = false;
+                freecePlayed++;
                 skip();
             }
             else {
@@ -138,10 +156,29 @@ int main() {
             }
         }
         else if (poyrad == true) {
-            if (poyradPlayed == 0) {
-                cout << "Fifth letter: M\n";
+            poyradQuit = false;
+            cout << "Fifth letter: M\n";
+            while (!poyradQuit) {
+            cout << "Enter the Full Code(All caps)\n";
+            cin >> playerCode;
+                if (playerCode == poyradCode) {
+            cout << "Health = " << player1.health << "   Weapon Damage = " << player1.weaponDamage << endl;
                 player1.health = Poyrad(player1.health, player1.weaponDamage);
+                poyrad = false;
+                poyradQuit = true;
                 skip();
+                }
+                else {
+                    cout << "1. Try again     2. Choose different planet\n";
+                    cin >> poyradChoice;
+                    switch (poyradChoice) {
+                        case 1:
+                            break;
+                        case 2:
+                            poyradQuit = true;
+                            break;
+                    }
+                }
             }
         }
     }
@@ -197,7 +234,7 @@ void planetMenu() {
 
 //Planets
 int Scario(int playerHealth, int playerWeaponDamage) {
-    cout << "You go to your home planet, Scario. When you can find a landing pad in the city, you land in a forest. As you hike to the city, you meet a ghoul.\n";
+    cout << "You go to your home planet, Scario. When you can't find a landing pad in the city, you land in a forest. As you hike to the city, you meet a ghoul.\n";
     sleep(3);
     cout << "The ghoul asks you a question, \"Will you find the ghoul's artifact?\"" << "    What's that" << "    You don't need to know that, just find it in Jerk's Junkyard" <<  "    Fine, i'll get it for you\n";
     sleep(4);
@@ -206,28 +243,42 @@ int Scario(int playerHealth, int playerWeaponDamage) {
     cout << "As you enter, you see about 10 goons standing around a pyramid shaped object, that must be it.\nYou approach them, but they raise their guns at you\nYou flip a table and take cover\n";
     for (int i = 0; i < 10; i++) {
         cout << "Goon " << i + 1 << endl;
-        playerHealth = Attack(playerHealth, playerWeaponDamage);
+        playerHealth = Attack(playerHealth, playerWeaponDamage, 100);
     }
+    cout << "You finish all the goons and take the pyramid, it starts glowing\nYou leave the junkyard and go to the place where you met the ghoul\nIt's still there, hovering over the ground\n\"So, you got the artifact\"     \"Yeah, you could have at least warned me people were protecting it\"";
+    sleep(5);
+    cout << "     \"Oh, yes, I knew I forgot to tell a detail\"     \"Yeah, well so what do I get for helping you\"     \"The artifact of course\"     \"So it wasn't for you!\"     \"Oh no, I left out yet another detail, Oh well, good bye\"\n";
+    sleep(5);
+    cout << "The ghoul vanishes into thin air. You examine the artifact it's still glowing, suddenly you feel better, like a gust of wind flowed through you\n";
+    playerHealth += 20;
+    cout << "+20 Health";
     return playerHealth;
 }
 
 int Goran(int playerHealth, int playerWeaponDamage) {
-    Attack(playerHealth, playerWeaponDamage);
+    cout << "You travel to the planet of the androids. You land in the capital Robotron. A robot comes to greet you.\n\"Welcome to Robotron, what brings you here\"     \"I'm just here for some fun\"     \"Then why do you carry a gun\"     \"Like I said, for fun. Anyways, do you know where I can make some money\"\n";
+    sleep(5);
+    cout << " \"What do you do\"     \"Anything that involves a gun\"     \"Ok, will you do a job for me\"     \"What job\"n     \"You have to rescue my friend, he was captured by a gang.\"     \"How much is the pay\"     \"We'll discuss that after you rescue him\"    \"Fine, give me an advance amount\". The robot gives you 1000 credits\n";
+    sleep(5);
+    cout << "\"Where is he\"     \"He's being held hostage in the DEN\"     \"Where's that\"     \"I'll show you\". The robot takes you to a giant building in the center of town.     ";
+    cout << "\"He's being held in the 50th story, you'll have to sneak to get in there\"     \"Or I could just kill my way there\"\nYou go to the evevator and take it to the 50th floor, there you are greeted by some dangerous looking robots they take out their guns, and you take cover behind a corner\n";
+    for (int i = 0; i < 15; i++) {
+        cout << "Robot " << i + 1 << endl;
+        playerHealth = Attack(playerHealth, playerWeaponDamage, 75);
+    }
+    cout << "You kill all the robots at make your way to a room, there, you see a robot being electrocuted. You shut off the mechanism and take him off his binds. You carry him to the elevator   ";
     return playerHealth;
 }
 
 int Borjad(int playerHealth, int playerWeaponDamage) {
-    Attack(playerHealth, playerWeaponDamage);
     return playerHealth;
 }
 
 int Freece(int playerHealth, int playerWeaponDamage) {
-    Attack(playerHealth, playerWeaponDamage);
     return playerHealth;
 }
 
 int Poyrad(int playerHealth, int playerWeaponDamage) {
-    Attack(playerHealth, playerWeaponDamage);
     return playerHealth;
 }
 
@@ -237,9 +288,8 @@ int Poyrad(int playerHealth, int playerWeaponDamage) {
 
 
 //player and enemy functions
-int Attack(int playerHealth, int playerWeaponDamage) {
+int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth) {
     bool enemyDeath = false;
-    int enemyHealth = 100;
     int playerChoice;
     while (!enemyDeath) {
         if (enemyHealth <= 0) {
@@ -271,7 +321,7 @@ int Attack(int playerHealth, int playerWeaponDamage) {
             cout << "-10 health for your ignorance of instructions\n";
             playerHealth -= 10;
         }
-        
     }
+    playerHealth += 15;
     return playerHealth;
 }
