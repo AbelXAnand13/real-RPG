@@ -18,7 +18,7 @@ int Goran(int, int);
 int Borjad(int, int);
 int Freece(int, int);
 int Poyrad(int, int);
-int Attack(int, int, int);
+int Attack(int, int, int, int);
 
 
 
@@ -243,7 +243,7 @@ int Scario(int playerHealth, int playerWeaponDamage) {
     cout << "As you enter, you see about 10 goons standing around a pyramid shaped object, that must be it.\nYou approach them, but they raise their guns at you\nYou flip a table and take cover\n";
     for (int i = 0; i < 10; i++) {
         cout << "Goon " << i + 1 << endl;
-        playerHealth = Attack(playerHealth, playerWeaponDamage, 100);
+        playerHealth = Attack(playerHealth, playerWeaponDamage, 100, 20);
     }
     cout << "You finish all the goons and take the pyramid, it starts glowing\nYou leave the junkyard and go to the place where you met the ghoul\nIt's still there, hovering over the ground\n\"So, you got the artifact\"     \"Yeah, you could have at least warned me people were protecting it\"";
     sleep(5);
@@ -264,9 +264,11 @@ int Goran(int playerHealth, int playerWeaponDamage) {
     cout << "\"He's being held in the 50th story, you'll have to sneak to get in there\"     \"Or I could just kill my way there\"\nYou go to the evevator and take it to the 50th floor, there you are greeted by some dangerous looking robots they take out their guns, and you take cover behind a corner\n";
     for (int i = 0; i < 15; i++) {
         cout << "Robot " << i + 1 << endl;
-        playerHealth = Attack(playerHealth, playerWeaponDamage, 75);
+        playerHealth = Attack(playerHealth, playerWeaponDamage, 75, 25);
     }
-    cout << "You kill all the robots at make your way to a room, there, you see a robot being electrocuted. You shut off the mechanism and take him off his binds. You carry him to the elevator   ";
+    cout << "You kill all the robots at make your way to a room, there, you see a robot being electrocuted. You shut off the mechanism and take him off his binds. You carry him to the elevator.\n";
+    sleep(5);
+    cout << "\"Who are you\"     \"Your friend paid me to rescue you\"";
     return playerHealth;
 }
 
@@ -288,7 +290,7 @@ int Poyrad(int playerHealth, int playerWeaponDamage) {
 
 
 //player and enemy functions
-int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth) {
+int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth, int enemyRandDamage) {
     bool enemyDeath = false;
     int playerChoice;
     while (!enemyDeath) {
@@ -303,7 +305,7 @@ int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth) {
         cout << "1. Hit   2. Dodge\n";
         cin >> playerChoice;
         int hitMiss = (rand() % 2) + 1;
-        int enemyDamage = (rand() % 20) + 1;
+        int enemyDamage = (rand() % enemyRandDamage) + 1;
         if (playerChoice == 1) {
             enemyHealth -= playerWeaponDamage;
             if (hitMiss == 1) {
