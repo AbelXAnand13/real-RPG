@@ -31,17 +31,16 @@ struct player {
     string name;
     int health;
     int weaponDamage;
+    int score;
 };
 
 
 
 
 
-
-
-
-
-
+// Nothing to see here, just some local variables on vacation
+int score = 0;
+int weaponDamageBoost;
 
 
 int main() {
@@ -325,5 +324,6 @@ int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth, int enemyR
         }
     }
     playerHealth += 15;
+    score += 10;
     return playerHealth;
 }
