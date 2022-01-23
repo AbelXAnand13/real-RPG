@@ -5,9 +5,9 @@
 #include <thread>
 #include <unistd.h>
 #include <time.h>
+using namespace std;
 
 //declaring functions
-using namespace std;
 void heathCheck(int);
 void gameOver();
 void skip();
@@ -267,7 +267,13 @@ int Goran(int playerHealth, int playerWeaponDamage) {
     }
     cout << "You kill all the robots at make your way to a room, there, you see a robot being electrocuted. You shut off the mechanism and take him off his binds. You carry him to the elevator.\n";
     sleep(5);
-    cout << "\"Who are you\"     \"Your friend paid me to rescue you\"";
+    cout << "\"Who are you\"     \"Your friend paid me to rescue you\"     \"Which friend\"     \"The blue one\"     \"I don't have a blue friend\"     \"The one who wears a red bandana\"     Suddenly the robot's face looks scared.\"That's the one who locked me in here\"\n";
+    sleep(5);
+    cout << "\"After all that bonding I thought we were friends. Now you've insulted me\". The blue robot takes out a golden gun. You recognize it as the 24 carat, a high damaging rifle\nHe starts shooting at you and you take cover\n";
+    Attack(playerHealth, playerWeaponDamage, 150, 50);
+    cout << "You kill the blue robot. He drops his gun, it does 25 more damage than your current gun\n";
+    sleep(2);
+    cout << "\"Thank you for saving me\"     \"Yeah, no problem\"     \"How much did he owe you\"     \"It's fine, this gun's worth way more\"";
     return playerHealth;
 }
 
@@ -298,16 +304,14 @@ int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth, int enemyR
             enemyDeath = true;
             break;
         }
-        if (playerHealth <= 0) {
-            gameOver();
-        }
+        healthCheck(playerHealth);
         cout << "1. Hit   2. Dodge\n";
         cin >> playerChoice;
-        int hitMiss = (rand() % 2) + 1;
+        int hitMiss = (rand() % 3) + 1;
         int enemyDamage = (rand() % enemyRandDamage) + 1;
         if (playerChoice == 1) {
             enemyHealth -= playerWeaponDamage;
-            if (hitMiss == 1) {
+            if (hitMiss == 1 || hitMiss == 2) {
                 cout << "The enemy hit you for " << enemyDamage << endl;
                 playerHealth -= enemyDamage;
             }
