@@ -45,6 +45,32 @@ int weaponDamageBoost;
 
 int main() {
     srand(time(0));
+    bool mainQuit = true;
+    char mainChoice;
+    cout << "Do you want to play THE ADVENTURES OF string name;\nY/N\n";
+    cin >> mainChoice;
+    mainChoice = toupper(mainChoice);
+    switch (mainChoice) {
+        case 'Y':
+            mainQuit = false;
+            break;
+        case 'N':
+            gameOver();
+            break;
+        default:
+            cout << "You don't know how to read directions, so you are not worthy to play my game\n";
+            break;
+    }
+    bool scario = false;
+    bool goran = false;
+    bool borjad = false;
+    bool freece = false;
+    bool poyrad = false;
+    int scarioPlayed = 0;
+    int goranPlayed = 0;
+    int borjadPlayed = 0;
+    int freecePlayed = 0;
+    while (mainQuit == false){
     string name;
     bool quit = false;
     int planetChoice;
@@ -62,15 +88,7 @@ int main() {
     }
     cout << "Hi " << name << " welcome to The Adventures of string name;\nYour task is to survive\n";
     skip();
-    bool scario = false;
-    bool goran = false;
-    bool borjad = false;
-    bool freece = false;
-    bool poyrad = false;
-    int scarioPlayed = 0;
-    int goranPlayed = 0;
-    int borjadPlayed = 0;
-    int freecePlayed = 0;
+    
     string poyradCode = "SKYZM";
     bool poyradQuit;
     int poyradChoice;//if you want to choose a different planet or try the poyrad code again
@@ -98,15 +116,15 @@ int main() {
                 poyrad = true;
                 break;
             default:
-                cout << "Please choose a valid planet";
+                cout << "Please choose a valid planet\n";
                 break;
         }
         if (scario == true) {
             if (scarioPlayed == 0) {
                 cout << "Health = " << player1.health << "   Weapon Damage = " << player1.weaponDamage << endl;
                 player1.health = Scario(player1.health, player1.weaponDamage);
-                cout << "You killed all the goons";
                 cout << "First letter: S\n";
+                score += 100;
                 scario = false;
                 scarioPlayed++;
                 skip();
@@ -120,6 +138,8 @@ int main() {
             if (goranPlayed == 0) {
                 player1.health = Goran(player1.health, player1.weaponDamage);
                 cout << "Second letter: K\n";
+                player1.weaponDamage += weaponDamageBoost;
+                score += 100;
                 goran = false;
                 goranPlayed++;
                 skip();
@@ -133,6 +153,7 @@ int main() {
             if (borjadPlayed == 0) {
                 player1.health = Borjad(player1.health, player1.weaponDamage);
                 cout << "Third letter: Y\n";
+                score += 100;
                 borjad = false;
                 borjadPlayed++;
                 skip();
@@ -146,6 +167,7 @@ int main() {
             if (freecePlayed == 0) {
                 player1.health = Freece(player1.health, player1.weaponDamage);
                 cout << "Fourth letter: Z\n";
+                score += 100;
                 freece = false;
                 freecePlayed++;
                 skip();
@@ -163,8 +185,10 @@ int main() {
                 if (playerCode == poyradCode) {
             cout << "Health = " << player1.health << "   Weapon Damage = " << player1.weaponDamage << endl;
                 player1.health = Poyrad(player1.health, player1.weaponDamage);
+                    score += 100;
                 poyrad = false;
                 poyradQuit = true;
+                    mainQuit = true;
                 skip();
                 }
                 else {
@@ -176,13 +200,16 @@ int main() {
                         case 2:
                             poyradQuit = true;
                             break;
+                        }
                     }
                 }
+            }
+        else {
+            continue;
             }
         }
     }
 }
-
 
 
 
@@ -199,7 +226,7 @@ void healthCheck(int health) {
 }
 
 void gameOver() {
-    cout << "Game over\n";
+    cout << "Game over\nScore:" << score;
     //add player stats
     exit(0);
 }
@@ -244,15 +271,18 @@ int Scario(int playerHealth, int playerWeaponDamage) {
         cout << "Goon " << i + 1 << endl;
         playerHealth = Attack(playerHealth, playerWeaponDamage, 100, 20);
     }
-    cout << "You finish all the goons and take the pyramid, it starts glowing\nYou leave the junkyard and go to the place where you met the ghoul\nIt's still there, hovering over the ground\n\"So, you got the artifact\"     \"Yeah, you could have at least warned me people were protecting it\"";
+    cout << "You finish all the goons and take the pyramid, it starts glowing\nYou leave the junkyard and go to the place where you met the ghoul\nIt's still there, hovering over the ground\n\"So, you got the artifact\"     \"Yeah, you could have at least warned me people were protecting it\"\n";
     sleep(5);
-    cout << "     \"Oh, yes, I knew I forgot to tell a detail\"     \"Yeah, well so what do I get for helping you\"     \"The artifact of course\"     \"So it wasn't for you!\"     \"Oh no, I left out yet another detail, Oh well, good bye\"\n";
+    cout << "\"Oh, yes, I knew I forgot to tell a detail\"     \"Yeah, well so what do I get for helping you\"     \"The artifact of course\"     \"So it wasn't for you!\"     \"Oh no, I left out yet another detail, Oh well, good bye\"\n";
     sleep(5);
     cout << "The ghoul vanishes into thin air. You examine the artifact it's still glowing, suddenly you feel better, like a gust of wind flowed through you\n";
     playerHealth += 20;
-    cout << "+20 Health";
+    cout << "+20 Health\n";
     return playerHealth;
 }
+
+
+
 
 int Goran(int playerHealth, int playerWeaponDamage) {
     cout << "You travel to the planet of the androids. You land in the capital Robotron. A robot comes to greet you.\n\"Welcome to Robotron, what brings you here\"     \"I'm just here for some fun\"     \"Then why do you carry a gun\"     \"Like I said, for fun. Anyways, do you know where I can make some money\"\n";
@@ -269,11 +299,15 @@ int Goran(int playerHealth, int playerWeaponDamage) {
     sleep(5);
     cout << "\"Who are you\"     \"Your friend paid me to rescue you\"     \"Which friend\"     \"The blue one\"     \"I don't have a blue friend\"     \"The one who wears a red bandana\"     Suddenly the robot's face looks scared.\"That's the one who locked me in here\"\n";
     sleep(5);
-    cout << "\"After all that bonding I thought we were friends. Now you've insulted me\". The blue robot takes out a golden gun. You recognize it as the 24 carat, a high damaging rifle\nHe starts shooting at you and you take cover\n";
+    cout << "\"After all that bonding I thought we were friends. Now you've insulted me\". The blue robot takes out a golden gun. You recognize it as the 24 carat upgrade, a high damaging upgrade\nHe starts shooting at you and you take cover\n";
     Attack(playerHealth, playerWeaponDamage, 150, 50);
     cout << "You kill the blue robot. He drops his gun, it does 25 more damage than your current gun\n";
     sleep(2);
-    cout << "\"Thank you for saving me\"     \"Yeah, no problem\"     \"How much did he owe you\"     \"It's fine, this gun's worth way more\"";
+    cout << "\"Thank you for saving me\"     \"Yeah, no problem\"     \"How much did he owe you\"     \"It's fine, this gun's worth way more\"     \"I can't thank you enough\"     \"I'll be leaving now, i've had enough of Goran for a day\"\n";
+    sleep(4);
+    cout << "You leave goran with your new gun\n";
+    weaponDamageBoost = 10;
+    cout << "+10 weapon damage     New weapon upgrade- 24 Carat\n";
     return playerHealth;
 }
 
@@ -297,6 +331,7 @@ int Poyrad(int playerHealth, int playerWeaponDamage) {
 //player and enemy functions
 int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth, int enemyRandDamage) {
     bool enemyDeath = false;
+    bool reload = false;
     int playerChoice;
     while (!enemyDeath) {
         if (enemyHealth <= 0) {
@@ -305,7 +340,7 @@ int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth, int enemyR
             break;
         }
         healthCheck(playerHealth);
-        cout << "1. Hit   2. Dodge\n";
+        cout << "1. Hit(Assualt rifle)   2. Dodge\n";
         cin >> playerChoice;
         int hitMiss = (rand() % 3) + 1;
         int enemyDamage = (rand() % enemyRandDamage) + 1;
@@ -327,7 +362,7 @@ int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth, int enemyR
             playerHealth -= 10;
         }
     }
-    playerHealth += 15;
+    playerHealth += 10;
     score += 10;
     return playerHealth;
 }
