@@ -20,7 +20,19 @@ int Freece(int, int);
 int Poyrad(int, int);
 int Attack(int, int, int, int);
 
-
+//Maze rooms for borjad
+void box1();
+void box2();
+void box3();
+void box4();
+void box5();
+void box6();
+void box7();
+void box8();
+void box9();
+void box10();
+void box11();
+void box12();
 
 
 
@@ -312,6 +324,17 @@ int Goran(int playerHealth, int playerWeaponDamage) {
 }
 
 int Borjad(int playerHealth, int playerWeaponDamage) {
+    cout << "You go to the rich desert planet of Borjad. As you fly over the capital city of Nala, you see merchants lining the streets with their goods. You decide it would be better to land somewhere in the desert\n";
+    sleep(4);
+    cout << "As you go deeper into the desert, you see a single merchant with a camel. You land your ship near where he is. He approaches you. \"Hey traveler, my precious Jewel is in the heart of the underground maze, will you get it.\"     \"Sure, where's the maze\". Suddenly the sand below you sinks.";
+    sleep(5);
+    cout << "You are in the maze\n";
+    box1();
+    sleep(2);
+    cout << "\"Here's your jewel, I could swear the maze had me going in circles, anyway, how'd you get your jewlel stuck in the maze\"     \"Oh, I put it there\"     \"Then why'd you ask me to get it for you\"     \"I never asked you to get it for ME, I just asked you to get it\"\n";
+    sleep(4);
+    cout << "\"Wow, all that time in the maze for nothing\"     \"No, you got the jewel, it makes you stronger\". You know the merchant isn't lying, you do feel more refreshed. You thank him and leave Borjad\n+10 health\n";
+    playerHealth += 10;
     return playerHealth;
 }
 
@@ -331,7 +354,6 @@ int Poyrad(int playerHealth, int playerWeaponDamage) {
 //player and enemy functions
 int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth, int enemyRandDamage) {
     bool enemyDeath = false;
-    bool reload = false;
     int playerChoice;
     while (!enemyDeath) {
         if (enemyHealth <= 0) {
@@ -365,4 +387,217 @@ int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth, int enemyR
     playerHealth += 10;
     score += 10;
     return playerHealth;
+}
+
+
+//Functions for maze
+void box1(){
+    int choice;
+    bool quit = false;
+    cout << "Would you like to go right(1) or down(2)\n";
+    while (!quit) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                box2();
+                break;
+            case 2:
+                box4();
+                break;
+            default:
+                cout << "plz enter correc ting\n";
+                break;
+        }
+    }
+}
+
+void box2() {
+    int choice;
+    bool quit = false;
+    cout << "Would you like to go right(1), left(2), or down(3)\n";
+    while (!quit) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                box3();
+                break;
+            case 2:
+                box1();
+                break;
+            case 3:
+                box5();
+                break;
+            default:
+                cout << "plz enter correc ting\n";
+                break;
+        }
+    }
+}
+
+void box3() {
+    cout << "Dead End, You have to go left\n";
+    box2();
+}
+
+void box4() {
+    int choice;
+    bool quit = false;
+    cout << "Would you like to go up(1), down(2), or right(3)\n";
+    while (!quit) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                box1();
+                break;
+            case 2:
+                box7();
+                break;
+            case 3:
+                box5();
+                break;
+            default:
+                cout << "plz enter correc ting\n";
+                break;
+        }
+    }
+}
+
+void box5() {
+    int choice;
+    bool quit = false;
+    cout << "Would you like to go right(1), left(2), up(3), or down(4)\n";
+    while (!quit) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                box6();
+                break;
+            case 2:
+                box4();
+                break;
+            case 3:
+                box2();
+                break;
+            case 4:
+                box9();
+            default:
+                cout << "plz enter correc ting\n";
+                break;
+        }
+    }
+}
+
+void box6() {
+    int choice;
+    bool quit = false;
+    cout << "Would you like to go left(1) or down(2)\n";
+    while (!quit) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                box5();
+                break;
+            case 2:
+                box9();
+                break;
+            default:
+                cout << "plz enter correc ting\n";
+                break;
+        }
+    }
+}
+
+void box7() {
+    int choice;
+    bool quit = false;
+    cout << "Would you like to go right(1), down(2) or up(3)\n";
+    while (!quit) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                box8();
+                break;
+            case 2:
+                box10();
+                break;
+            case 3:
+                box4();
+                break;
+            default:
+                cout << "plz enter correc ting\n";
+                break;
+        }
+    }
+}
+
+void box8() {
+    int choice;
+    bool quit = false;
+    cout << "Would you like to go right(1) or left(2)\n";
+    while (!quit) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                box9();
+                break;
+            case 2:
+                box7();
+                break;
+            default:
+                cout << "plz enter correc ting\n";
+                break;
+        }
+    }
+}
+
+void box9() {
+    int choice;
+    bool quit = false;
+    cout << "Would you like to go up(1), down(2) or left(3)\n";
+    while (!quit) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                box6();
+                break;
+            case 2:
+                box12();
+                break;
+            case 3:
+                box8();
+                break;
+            default:
+                cout << "plz enter correc ting\n";
+                break;
+        }
+    }
+}
+
+void box10() {
+    int choice;
+    bool quit = false;
+    cout << "Would you like to go up(1), or right(2)\n";
+    while (!quit) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                box7();
+                break;
+            case 2:
+                box11();
+                break;
+            default:
+                cout << "plz enter correc ting\n";
+                break;
+        }
+    }
+}
+
+void box11() {
+    cout << "You find the jewel and go back to the merchant\n  ";
+}
+
+void box12() {
+    cout << "Dead End, you have to go up\n";
+    box9();
 }
