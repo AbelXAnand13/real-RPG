@@ -106,8 +106,11 @@ int main() {
     int poyradChoice;//if you want to choose a different planet or try the poyrad code again
     string playerCode;//code that the player enters
     cout << "Choose the planet you want to start at.\nYou can only change planets when you finish the mission on the planet\nHint: Choose Poyrad last\n";
-    cout << "How to play: Your enemy will do anywhere from 1 - 20 damage on you, you will either dodge, or shoot. Each enemy can be killed with two shots\n";
-    while (!quit) {
+        sleep(3);
+    cout << "How to play: Your enemy will do a random damage on you(changes between different planets), you will either dodge, or shoot. Each enemy will have a set amount of health\n";
+    sleep(4);
+    
+        while (!quit) {
         planetMenu();
         cin >> planetChoice;
         skip();
@@ -238,7 +241,7 @@ void healthCheck(int health) {
 }
 
 void gameOver() {
-    cout << "Game over\nScore:" << score;
+    cout << "Game over\nScore:" << score << endl;
     //add player stats
     exit(0);
 }
@@ -339,6 +342,9 @@ int Borjad(int playerHealth, int playerWeaponDamage) {
 }
 
 int Freece(int playerHealth, int playerWeaponDamage) {
+    cout << "You go to the frozen sphere that is the planet Freece. Not much goes on in Freece except for mountaineering, about 70% of Freece is still undocumented\n";
+    sleep(3);
+    cout << "";
     return playerHealth;
 }
 
@@ -390,7 +396,7 @@ int Attack(int playerHealth, int playerWeaponDamage, int enemyHealth, int enemyR
 }
 
 
-//Functions for maze
+//Functions for maze rooms
 void box1(){
     int choice;
     bool quit = false;
