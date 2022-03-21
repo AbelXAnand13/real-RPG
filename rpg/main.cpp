@@ -1,4 +1,4 @@
-//  Abel Anand
+//  Abel Anand🍥
 #include <iostream>
 #include <string>
 #include <stdio.h>
@@ -6,10 +6,9 @@
 #include <unistd.h>
 #include <time.h>
 #include <fstream>
-
 using namespace std;
 
-//declaring functions
+//function prototypes
 void heathCheck(int);
 void gameOver();
 void skip();
@@ -58,11 +57,59 @@ int main() {
     srand(time(0));
     bool mainQuit = true;
     char mainChoice;
+    ifstream in;
+    int scarioPlayed = 0;
+    int goranPlayed = 0;
+    int borjadPlayed = 0;
+    int freecePlayed = 0;
+    bool savedGame;
+    string temp;
+    player player1;
+    in.open("/Users/Abel/Documents/Cpp/rpg/rpg/savefile.txt");
     cout << "Do you want to play THE ADVENTURES OF string name;\nY/N\n\n";
     cin >> mainChoice;
     mainChoice = toupper(mainChoice);
     switch (mainChoice) {
         case 'Y':
+            in.seekg(0, ios::end);
+            if (in.tellg() != 0) {
+                cout << "You have a saved game, would you like to continue that?\nY/N\n";
+                cin >> mainChoice;
+                mainChoice = toupper(mainChoice);
+                switch (mainChoice) {
+                    case 'Y':
+                        savedGame = true;
+                        getline(in, temp, ',');
+                        scarioPlayed = stoi(temp);
+                        getline(in, temp, ',');
+                        goranPlayed = stoi(temp);
+                        getline(in, temp, ',');
+                        borjadPlayed = stoi(temp);
+                        getline(in, temp, ',');
+                        freecePlayed = stoi(temp);
+                        getline(in, temp, ',');
+                        player1.health = stoi(temp);
+                        getline(in, temp, ',');
+                        player1.weaponDamage = stoi(temp);
+                        getline(in, temp, ',');
+                        player1.score = stoi(temp);
+                        getline(in, player1.name, ',');
+                        cout << "Welcome back" << player1.name << endl << endl;
+                        break;
+                    case 'N':
+                        savedGame = false;
+                        cout << "Ok, you are going to restart\n";
+                        in.close();
+                        break;
+                    default:
+                        cout << "You dont get the saved file, sry(not really)\n";
+                }
+            }
+            else {
+                in.close();
+                savedGame = false;
+            }
+            
             mainQuit = false;
             break;
         case 'N':
@@ -77,17 +124,12 @@ int main() {
     bool borjad = false;
     bool freece = false;
     bool poyrad = false;
-    int scarioPlayed = 0;
-    int goranPlayed = 0;
-    int borjadPlayed = 0;
-    int freecePlayed = 0;
+    
     while (mainQuit == false){
+        if (savedGame == false) {
     string name;
-    bool quit = false;
-    int planetChoice;
     cout << "Please Enter Player Name:\n\n";
     cin >> name;
-    player player1;
     player1.name = name;
     if (player1.name == "Abel" || player1.name == "abel") {
         player1.health = 100000000;
@@ -101,30 +143,40 @@ int main() {
     else {
         player1.health = 100;
         player1.weaponDamage = 50;
-    }
+        }
+    
     cout << "Hi " << name << " welcome to The Adventures of string name;\n\nYour task is to survive\n\n";
     skip();
-    
+        }
     string poyradCode = "SKYZM";//code
     bool poyradQuit;
     int poyradChoice;//if you want to choose a different planet or try the poyrad code again
     string playerCode;//code that the player enters
-        if (scarioPlayed != 0 || goranPlayed!=0 || borjadPlayed != 0 || freecePlayed != 0) {
-            int choice;
-            cout << "Would you like to save and quit?\nY/N\n";
-            cin >> choice;
-            if (choice == 'Y') {
-                ofstream out;
-                out.open("/Users/Abel/Documents/Cpp/rpg/rpg/savefile.txt");//***make sure to change when switching computers***
-                out << scarioPlayed << "," << goranPlayed << "," << borjadPlayed << "," << freecePlayed << "," << player1.health << "," << player1.weaponDamage << "," << player1.score << "," << player1.name;
-            }
-        }
+        
     cout << "Choose the planet you want to start at.\n\nYou can only change planets when you finish the mission on the planet\n\nHint: Choose Poyrad last\n\n";
         sleep(3);
     cout << "How to play: Your enemy will do a random damage on you(changes between different planets), you will either dodge, or shoot. Each enemy will have a set amount of health\n\n";
     sleep(4);
-    
+        bool quit = false;
+        int planetChoice;
         while (!quit) {
+            if (scarioPlayed != 0 || goranPlayed!=0 || borjadPlayed != 0 || freecePlayed != 0) {
+                char choice;
+                cout << "Would you like to save and quit?\nY/N\n";
+                cin >> choice;
+                choice = toupper(choice);
+                if (choice == 'Y') {
+                    ofstream out;
+                    out.open("/Users/Abel/Documents/Cpp/rpg/rpg/savefile.txt");//***make sure to change when switching computers***
+                    out << scarioPlayed << "," << goranPlayed << "," << borjadPlayed << "," << freecePlayed << "," << player1.health << "," << player1.weaponDamage << "," << player1.score << "," << player1.name;
+                    out.close();
+                    gameOver();
+                }
+                else {
+                    cout << "Not quitting...\n";
+                    continue;
+                }
+            }
         planetMenu();
         cin >> planetChoice;
         skip();
