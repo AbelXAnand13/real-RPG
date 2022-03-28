@@ -1,12 +1,15 @@
 //  Abel Anand🍥
 #include <iostream>
-#include <string>
+#include <string>//dealing with strings
 #include <stdio.h>
 #include <thread>
-#include <unistd.h>
-#include <time.h>
-#include <fstream>
-using namespace std;
+#include <unistd.h>//dealing with time
+#include <time.h>//time
+#include <fstream>//dealing with files
+using namespace std;//anything std
+
+
+
 
 //function prototypes
 void heathCheck(int);
@@ -20,6 +23,9 @@ void Borjad(int&, int&, int&);
 void Freece(int&, int&, int&);
 void Poyrad(int&, int&, int&);
 void Attack(int&, int&, int&, int, int);
+
+
+
 
 //Maze rooms for borjad
 void box1();
@@ -65,7 +71,7 @@ int main() {
     bool savedGame;
     string temp;
     player player1;
-    in.open("/Users/Abel/Documents/Cpp/rpg/rpg/savefile.txt");
+    
     cout << "Do you want to play THE ADVENTURES OF string name;\nY/N\n\n";
     cin >> mainChoice;
     mainChoice = toupper(mainChoice);
@@ -78,6 +84,10 @@ int main() {
                 mainChoice = toupper(mainChoice);
                 switch (mainChoice) {
                     case 'Y':
+                        in.open("/Users/anandab/Documents/real-RPG/rpg/savefile.txt");
+                        if (!in.is_open()) {
+                            cout << "Savefile is not working\n\n";
+                        }
                         savedGame = true;
                         getline(in, temp, ',');
                         scarioPlayed = stoi(temp);
@@ -93,20 +103,19 @@ int main() {
                         player1.weaponDamage = stoi(temp);
                         getline(in, temp, ',');
                         player1.score = stoi(temp);
-                        getline(in, player1.name, ',');
+                        getline(in, player1.name);
                         cout << "Welcome back" << player1.name << endl << endl;
+                        in.close();
                         break;
                     case 'N':
                         savedGame = false;
                         cout << "Ok, you are going to restart\n";
-                        in.close();
                         break;
                     default:
                         cout << "You dont get the saved file, sry(not really)\n";
                 }
             }
             else {
-                in.close();
                 savedGame = false;
             }
             
@@ -174,6 +183,7 @@ int main() {
                 }
                 else {
                     cout << "Not quitting...\n";
+                    quit = true;
                     continue;
                 }
             }
@@ -436,6 +446,15 @@ void Poyrad(int &playerHealth, int &playerWeaponDamage, int &playerScore) {
 
 
 
+
+
+
+
+
+
+
+
+
 //player and enemy functions
 void Attack(int &playerHealth, int &playerWeaponDamage, int &playerScore, int enemyHealth, int enemyRandDamage) {
     bool enemyDeath = false;
@@ -470,7 +489,29 @@ void Attack(int &playerHealth, int &playerWeaponDamage, int &playerScore, int en
         }
     }
     playerHealth += 10;
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Functions for maze rooms
